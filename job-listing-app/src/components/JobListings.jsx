@@ -1,18 +1,38 @@
 import React from 'react'
-import jobs from '../jobs.json'
+import { useState, useEffect } from 'react';
+
 import JobListing from './JobListing'
 
 const JobListings = ({ isHome }) => {
-    var recentJobs = isHome ? jobs.slice(0, 3) : jobs;
+    const [jobs, setJobs] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    return (
+    useEffect(() => {
+        const fetchJobs = async () => {
+            try {
+                const apiUrl = isHome ? "/api/jobs?_limit=3" : "/api/jobs";
+                const res = await fetch(apiUrl);
+                const data = await res.json();
+
+                setJobs(data);
+            } catch {
+                console.log("Error loading data...");
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        fetchJobs();
+    }, [])
+
+    return loading ? (<h1>Loading Data...</h1>) : (
         <section className="bg-blue-50 px-4 py-10">
             <div className="container-xl lg:container m-auto">
                 <h2 className="text-3xl font-bold text-indigo-500 mb-6 text-center">
                     { isHome ? "Browse Jobs" : "Available Jobs"}
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    { recentJobs.map((job) => (
+                    { jobs.map((job) => (
                         <JobListing key={ job.id } job={ job }/>
                     )) }
                 </div>
