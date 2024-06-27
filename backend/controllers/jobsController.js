@@ -11,7 +11,10 @@ const getJobs = (req, res) => {
 // @route POST /api/jobs
 // @access Private
 const postJobs = (req, res) => {
-    console.log(req.body);
+    if (!req.body.text) {
+        res.status(400);
+        throw new Error("Please send a text field")
+    }
 
     res.status(201).json({
         message: "Created Jobs"
