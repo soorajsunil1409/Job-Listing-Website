@@ -18,17 +18,15 @@ const AddJobPage = ({ addJobFunction }) => {
         event.preventDefault();
     
         const newJob = {
-            title,
             type,
+            title,
             location,
             description,
             salary,
-            company: {
-                name: companyName,
-                description: companyDescription,
-                contactEmail,
-                contactPhone,
-            },
+            cname: companyName,
+            cdescription: companyDescription,
+            cemail: contactEmail,
+            cphone: contactPhone
         }
         
         addJobFunction(newJob);

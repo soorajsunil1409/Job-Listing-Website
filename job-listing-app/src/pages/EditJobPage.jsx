@@ -10,10 +10,10 @@ const EditJobPage = ({ editJobFunction }) => {
   const [location, setLocation] = useState(job.location);
   const [description, setDescription] = useState(job.description);
   const [salary, setSalary] = useState(job.salary);
-  const [companyName, setCompanyName] = useState(job.company.name);
-  const [companyDescription, setCompanyDescription] = useState(job.company.description);
-  const [contactEmail, setContactEmail] = useState(job.company.contactEmail);
-  const [contactPhone, setContactPhone] = useState(job.company.contactPhone);
+  const [companyName, setCompanyName] = useState(job.cname);
+  const [companyDescription, setCompanyDescription] = useState(job.cdescription);
+  const [contactEmail, setContactEmail] = useState(job.cemail);
+  const [contactPhone, setContactPhone] = useState(job.cphone);
 
   const navigate = useNavigate();
 
@@ -21,18 +21,15 @@ const EditJobPage = ({ editJobFunction }) => {
     event.preventDefault();
 
     const newJob = {
-      id,
-      title,
       type,
+      title,
       location,
       description,
       salary,
-      company: {
-        name: companyName,
-        description: companyDescription,
-        contactEmail,
-        contactPhone,
-      },
+      cname: companyName,
+      cdescription: companyDescription,
+      cemail: contactEmail,
+      cphone: contactPhone
     }
 
     editJobFunction(newJob);

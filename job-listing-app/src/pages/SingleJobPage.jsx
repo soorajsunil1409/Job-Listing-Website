@@ -9,6 +9,8 @@ const SingleJobPage = ({ deleteJobFunction }) => {
     const job = useLoaderData();
     const navigate = useNavigate();
 
+    console.log(job.description);
+
     const onDeleteClick = (jobId) => {
         const confirm = window.confirm(`Are you sure you want to delete this job?`);
         if (!confirm) return;
@@ -70,10 +72,10 @@ const SingleJobPage = ({ deleteJobFunction }) => {
                             <div className="bg-white p-6 rounded-lg shadow-md">
                                 <h3 className="text-xl font-bold mb-6">Company Info</h3>
 
-                                <h2 className="text-2xl">{ job.company.name }</h2>
+                                <h2 className="text-2xl">{ job.cname }</h2>
 
                                 <p className="my-2">
-                                    { job.company.description }
+                                    { job.cdescription }
                                 </p>
 
                                 <hr className="my-4" />
@@ -81,12 +83,12 @@ const SingleJobPage = ({ deleteJobFunction }) => {
                                 <h3 className="text-xl">Contact Email:</h3>
 
                                 <p className="my-2 bg-indigo-100 p-2 font-bold">
-                                    { job.company.contactEmail }
+                                    { job.cemail }
                                 </p>
 
                                 <h3 className="text-xl">Contact Phone:</h3>
 
-                                <p className="my-2 bg-indigo-100 p-2 font-bold">{ job.company.contactPhone }</p>
+                                <p className="my-2 bg-indigo-100 p-2 font-bold">{ job.cphone }</p>
                             </div>
 
                             <div className="bg-white p-6 rounded-lg shadow-md mt-6">
