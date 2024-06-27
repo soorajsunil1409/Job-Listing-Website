@@ -9,8 +9,6 @@ const SingleJobPage = ({ deleteJobFunction }) => {
     const job = useLoaderData();
     const navigate = useNavigate();
 
-    console.log(job.description);
-
     const onDeleteClick = (jobId) => {
         const confirm = window.confirm(`Are you sure you want to delete this job?`);
         if (!confirm) return;

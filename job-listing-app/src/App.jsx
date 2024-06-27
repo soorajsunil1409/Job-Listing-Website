@@ -21,14 +21,12 @@ const App = () => {
       toast.success("Job deleted successfully");
     else 
       toast.error("An Error occured while deleting job");
-    
-        console.log(res);
 
     return;
   }
 
-  const editJob = async (job) => {
-    const res = await fetch(`/api/jobs/${job.id}`, {
+  const editJob = async (job, id) => {
+    const res = await fetch(`/api/jobs/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

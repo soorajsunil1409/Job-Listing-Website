@@ -32,7 +32,7 @@ const EditJobPage = ({ editJobFunction }) => {
       cphone: contactPhone
     }
 
-    editJobFunction(newJob);
+    editJobFunction(newJob, id);
 
     navigate("/jobs");
   }

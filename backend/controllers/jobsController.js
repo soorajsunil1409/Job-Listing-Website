@@ -1,14 +1,14 @@
 const asyncHandler = require('express-async-handler');
 
-const Goal = require('../models/jobModel');
+const Job = require('../models/jobModel');
 
 // @desc Get Jobs
 // @route GET /api/jobs
 // @access Private
 const getJobs = asyncHandler(async (req, res) => {
-    const goals = await Goal.find()
+    const jobs = await Job.find()
 
-    res.status(200).json(goals);
+    res.status(200).json(jobs);
 })
 
 // @desc Set Jobs
@@ -16,11 +16,13 @@ const getJobs = asyncHandler(async (req, res) => {
 // @access Private
 const getSingleJob = asyncHandler(async (req, res) => {
     const id = req.params.id;
-    const goal = await Goal.findById(id).catch(() => {
+    const job = await Job.findById(id);
+    
+    if (!job) {
         throw Error(`Invalid ID ${id}`);
-    })
+    }
 
-    res.status(200).json(goal);
+    res.status(200).json(job);
 })
 
 // @desc Set Jobs
@@ -29,10 +31,10 @@ const getSingleJob = asyncHandler(async (req, res) => {
 const postJobs = asyncHandler(async (req, res) => {
     if (!req.body) {
         res.status(400);
-        throw new Error("Please send a text field")
+        throw new Error("Please send a text field");
     }
 
-    const goal = await Goal.create(req.body)
+    const job = await Job.create(req.body);
 
     res.status(201).json({
         message: "Created Jobs"
@@ -43,18 +45,36 @@ const postJobs = asyncHandler(async (req, res) => {
 // @route PUT /api/jobs/:id
 // @access Private
 const updateJobs = asyncHandler(async (req, res) => {
-    res.status(200).json({
-        message: `Updated Job ${req.params.id}` 
-    })
+    const id = req.params.id;
+
+    const job = await Job.findById(id)
+
+    if (!job) {
+        throw Error(`Invalid ID ${id}`);
+    }
+
+    const updatedJob = await Job.findByIdAndUpdate(id, req.body, {
+        new: true,
+    });
+
+    res.status(200).json(updatedJob);
 })
 
 // @desc Get Jobs
 // @route DELETE /api/jobs/:id
 // @access Private
 const deleteJobs = asyncHandler(async (req, res) => {
-    res.status(200).json({
-        message: `Deleted Job ${req.params.id}` 
-    })
+    const id = req.params.id;
+
+    const job = await Job.findById(id)
+
+    if (!job) {
+        throw Error(`Invalid ID ${id}`);
+    }
+
+    const deletedJob = await Job.findByIdAndDelete(id)
+
+    res.status(200).json(deletedJob);
 })
 
 module.exports = {
